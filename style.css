@@ -1,4 +1,3 @@
-
 body {
   font-family: 'Comic Sans MS', cursive;
   margin: 0;
@@ -8,6 +7,17 @@ body {
   justify-content: center;
   height: 100vh;
   overflow: hidden;
+  position: relative;
+}
+
+#floatingHeartsAndStars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .screen {
@@ -17,6 +27,7 @@ body {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   transition: opacity 0.5s ease;
+  z-index: 2;
 }
 
 .hidden {
@@ -66,4 +77,22 @@ button {
 .bottom {
   font-size: 14px;
   color: #5c005c;
+}
+
+#floatingHeartsAndStars .heart, #floatingHeartsAndStars .star {
+  position: absolute;
+  font-size: 2rem;
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, -30px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
