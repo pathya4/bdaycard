@@ -11,30 +11,47 @@ let audio = document.getElementById("birthdayAudio");
 function createFloatingHeartsAndStars() {
   const container = document.getElementById("floatingHeartsAndStars");
 
-  // Create hearts and stars
+  // Create hearts and stars, randomly scattered
   for (let i = 0; i < 15; i++) {
     const heart = document.createElement("div");
     heart.classList.add("heart");
     heart.textContent = "💖";
+    heart.style.position = "absolute";
     heart.style.left = `${Math.random() * 100}%`;
-    heart.style.animationDuration = `${Math.random() * 4 + 3}s`;
+    heart.style.top = `${Math.random() * 100}%`;
+    heart.style.animationDuration = `${Math.random() * 4 + 3}s`; // Random speed
+    heart.style.animationName = "float";
     container.appendChild(heart);
     
     const star = document.createElement("div");
     star.classList.add("star");
     star.textContent = "✨";
+    star.style.position = "absolute";
     star.style.left = `${Math.random() * 100}%`;
-    star.style.animationDuration = `${Math.random() * 4 + 3}s`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.animationDuration = `${Math.random() * 4 + 3}s`; // Random speed
+    star.style.animationName = "float";
     container.appendChild(star);
   }
 }
 
 // Confetti effect
 function triggerConfetti() {
-  // Add confetti effect here, use a confetti library like canvas-confetti
-  const confetti = document.createElement("div");
-  confetti.classList.add("confetti");
-  document.body.appendChild(confetti);
+  const canvas = document.createElement("canvas");
+  document.body.appendChild(canvas);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const confetti = confetti.create(canvas, {
+    resize: true, // Automatically resizes the canvas when window size changes
+    useWorker: true // Performance optimization
+  });
+
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.5 }
+  });
 }
 
 // Timer and screen transitions
@@ -49,7 +66,7 @@ setTimeout(() => {
       clearInterval(timer);
       screen2.classList.add("hidden");
       screen3.classList.remove("hidden");
-      
+
       // Play the birthday song after the timer ends
       audio.play();
       createFloatingHeartsAndStars();  // Show floating hearts and stars
