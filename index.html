@@ -5,18 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Birthday 🎉</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- Audio player (hidden) for the birthday song -->
-  <audio id="birthdayAudio" autoplay loop>
-    <source src="https://github.com/your-username/your-repository-path/happy_birthday_piano.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+  <audio id="birthdayAudio" src="https://github.com/yourusername/yourrepo/raw/main/happy_birthday_piano.mp3" preload="auto"></audio>
 
-  <!-- Floating Hearts and Stars -->
-  <div id="floatingHeartsAndStars"></div>
+  <div id="floatingHeartsAndStars"></div> <!-- Container for floating hearts and stars -->
 
-  <!-- Screens -->
   <div class="screen screen1">
     <div class="card">
       <div class="hearts">💗 💗 💜</div>
