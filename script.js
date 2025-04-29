@@ -1,76 +1,40 @@
-let screen1 = document.querySelector(".screen1");
-let screen2 = document.querySelector(".screen2");
-let screen3 = document.querySelector(".screen3");
-let screen4 = document.querySelector(".screen4");
-let screen5 = document.querySelector(".screen5");
+const audio = document.getElementById("birthdayAudio");
 
-// Audio element for birthday song
-let audio = document.getElementById("birthdayAudio");
+const screen0 = document.querySelector(".screen0");
+const screen1 = document.querySelector(".screen1");
+const screen2 = document.querySelector(".screen2");
+const screen3 = document.querySelector(".screen3");
+const screen4 = document.querySelector(".screen4");
+const screen5 = document.querySelector(".screen5");
 
-// Function to create floating hearts and stars
-function createFloatingHeartsAndStars() {
-  const container = document.getElementById("floatingHeartsAndStars");
+const canvas = document.getElementById("confettiCanvas");
+const confettiInstance = confetti.create(canvas, { resize: true });
 
-  // Create hearts and stars, randomly scattered
-  for (let i = 0; i < 15; i++) {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.textContent = "💖";
-    heart.style.left = `${Math.random() * 100}%`;
-    heart.style.top = `${Math.random() * 100}%`;
-    heart.style.animationDuration = `${Math.random() * 4 + 3}s`; // Random speed
-    container.appendChild(heart);
-    
-    const star = document.createElement("div");
-    star.classList.add("star");
-    star.textContent = "✨";
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.animationDuration = `${Math.random() * 4 + 3}s`; // Random speed
-    container.appendChild(star);
-  }
-}
+document.getElementById("startBtn").addEventListener("click", () => {
+  // User interaction unlocks audio
+  audio.play().then(() => audio.pause()); // allow autoplay later
 
-// Confetti effect
-function triggerConfetti() {
-  // Use canvas-confetti to trigger confetti
-  const canvas = document.createElement("canvas");
-  document.body.appendChild(canvas);
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  screen0.classList.add("hidden");
+  screen1.classList.remove("hidden");
 
-  const confetti = confetti.create(canvas, {
-    resize: true, // Automatically resizes the canvas when window size changes
-    useWorker: true // Performance optimization
-  });
+  setTimeout(() => {
+    screen1.classList.add("hidden");
+    screen2.classList.remove("hidden");
 
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { y: 0.5 }
-  });
-}
-
-// Timer and screen transitions
-setTimeout(() => {
-  screen1.classList.add("hidden");
-  screen2.classList.remove("hidden");
-
-  let seconds = 10;
-  let timer = setInterval(() => {
-    document.getElementById("seconds").textContent = seconds;
-    if (seconds === 0) {
-      clearInterval(timer);
-      screen2.classList.add("hidden");
-      screen3.classList.remove("hidden");
-
-      // Play the birthday song after the timer ends
-      audio.play();
-      createFloatingHeartsAndStars();  // Show floating hearts and stars
-    }
-    seconds--;
-  }, 1000);
-}, 3000);
+    let seconds = 10;
+    let countdown = setInterval(() => {
+      document.getElementById("seconds").textContent = seconds;
+      if (seconds === 0) {
+        clearInterval(countdown);
+        screen2.classList.add("hidden");
+        screen3.classList.remove("hidden");
+        audio.play();
+        createFloatingHeartsAndStars();
+      }
+      seconds--;
+    }, 1000);
+  }, 2000);
+});
 
 document.getElementById("revealBtn").addEventListener("click", () => {
   screen3.classList.add("hidden");
@@ -80,5 +44,27 @@ document.getElementById("revealBtn").addEventListener("click", () => {
 document.getElementById("openCard").addEventListener("click", () => {
   screen4.classList.add("hidden");
   screen5.classList.remove("hidden");
-  triggerConfetti(); // Trigger confetti after the card is revealed
+  triggerConfetti();
 });
+
+function createFloatingHeartsAndStars() {
+  const container = document.getElementById("floatingHeartsAndStars");
+
+  for (let i = 0; i < 20; i++) {
+    const item = document.createElement("div");
+    item.className = Math.random() > 0.5 ? "heart" : "star";
+    item.textContent = item.className === "heart" ? "💖" : "✨";
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.top = Math.random() * 100 + "vh";
+    item.style.animationDuration = `${3 + Math.random() * 4}s`;
+    container.appendChild(item);
+  }
+}
+
+function triggerConfetti() {
+  confettiInstance({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+}
