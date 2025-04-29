@@ -16,27 +16,24 @@ function createFloatingHeartsAndStars() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
     heart.textContent = "💖";
-    heart.style.position = "absolute";
     heart.style.left = `${Math.random() * 100}%`;
     heart.style.top = `${Math.random() * 100}%`;
     heart.style.animationDuration = `${Math.random() * 4 + 3}s`; // Random speed
-    heart.style.animationName = "float";
     container.appendChild(heart);
     
     const star = document.createElement("div");
     star.classList.add("star");
     star.textContent = "✨";
-    star.style.position = "absolute";
     star.style.left = `${Math.random() * 100}%`;
     star.style.top = `${Math.random() * 100}%`;
     star.style.animationDuration = `${Math.random() * 4 + 3}s`; // Random speed
-    star.style.animationName = "float";
     container.appendChild(star);
   }
 }
 
 // Confetti effect
 function triggerConfetti() {
+  // Use canvas-confetti to trigger confetti
   const canvas = document.createElement("canvas");
   document.body.appendChild(canvas);
   canvas.width = window.innerWidth;
