@@ -8,11 +8,11 @@ const screen4 = document.querySelector(".screen4");
 const screen5 = document.querySelector(".screen5");
 
 const canvas = document.getElementById("confettiCanvas");
-const confettiInstance = confetti.create(canvas, { resize: true });
+const confettiInstance = confetti.create(canvas, { resize: true, useWorker: true });
 
 document.getElementById("startBtn").addEventListener("click", () => {
-  // User interaction unlocks audio
-  audio.play().then(() => audio.pause()); // allow autoplay later
+  // Unlock audio autoplay via user interaction
+  audio.play().then(() => audio.pause());
 
   screen0.classList.add("hidden");
   screen1.classList.remove("hidden");
@@ -28,7 +28,11 @@ document.getElementById("startBtn").addEventListener("click", () => {
         clearInterval(countdown);
         screen2.classList.add("hidden");
         screen3.classList.remove("hidden");
+
+        // 🎵 Play the birthday song
         audio.play();
+
+        // 💖 Create floating hearts and stars
         createFloatingHeartsAndStars();
       }
       seconds--;
@@ -39,32 +43,37 @@ document.getElementById("startBtn").addEventListener("click", () => {
 document.getElementById("revealBtn").addEventListener("click", () => {
   screen3.classList.add("hidden");
   screen4.classList.remove("hidden");
+
+  // 🎊 Trigger confetti on screen 4
+  triggerConfetti();
 });
 
 document.getElementById("openCard").addEventListener("click", () => {
   screen4.classList.add("hidden");
   screen5.classList.remove("hidden");
-  triggerConfetti();
+  // Optional: trigger more confetti here too
+  // triggerConfetti();
 });
 
 function createFloatingHeartsAndStars() {
   const container = document.getElementById("floatingHeartsAndStars");
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 30; i++) {
     const item = document.createElement("div");
     item.className = Math.random() > 0.5 ? "heart" : "star";
     item.textContent = item.className === "heart" ? "💖" : "✨";
     item.style.left = Math.random() * 100 + "vw";
     item.style.top = Math.random() * 100 + "vh";
-    item.style.animationDuration = `${3 + Math.random() * 4}s`;
+    item.style.position = "absolute";
+    item.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
     container.appendChild(item);
   }
 }
 
 function triggerConfetti() {
   confettiInstance({
-    particleCount: 150,
-    spread: 70,
-    origin: { y: 0.6 }
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.6 },
   });
 }
