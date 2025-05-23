@@ -44,9 +44,13 @@ document.getElementById("revealBtn").addEventListener("click", () => {
   screen3.classList.add("hidden");
   screen4.classList.remove("hidden");
 
+  // 🎵 Start song when Happy Birthday card is shown
+  audio.play().catch((e) => console.log("Audio play failed:", e));
+
   // 🎊 Trigger confetti on screen 4
   triggerConfetti();
 });
+
 
 document.getElementById("openCard").addEventListener("click", () => {
   screen4.classList.add("hidden");
