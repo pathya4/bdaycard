@@ -10,9 +10,13 @@ const screen5 = document.querySelector(".screen5");
 const canvas = document.getElementById("confettiCanvas");
 const confettiInstance = confetti.create(canvas, { resize: true, useWorker: true });
 
+// ✅ First interaction: unlock audio on Start
 document.getElementById("startBtn").addEventListener("click", () => {
   // Unlock audio autoplay via user interaction
-  audio.play().then(() => audio.pause());
+  audio.play().then(() => {
+    audio.pause(); // Immediately pause — just unlocking autoplay
+    audio.currentTime = 0;
+  });
 
   screen0.classList.add("hidden");
   screen1.classList.remove("hidden");
@@ -29,9 +33,6 @@ document.getElementById("startBtn").addEventListener("click", () => {
         screen2.classList.add("hidden");
         screen3.classList.remove("hidden");
 
-        // 🎵 Play the birthday song
-        audio.play();
-
         // 💖 Create floating hearts and stars
         createFloatingHeartsAndStars();
       }
@@ -40,22 +41,24 @@ document.getElementById("startBtn").addEventListener("click", () => {
   }, 2000);
 });
 
+// ✅ Play birthday song only when showing Happy Birthday screen (screen4)
 document.getElementById("revealBtn").addEventListener("click", () => {
   screen3.classList.add("hidden");
   screen4.classList.remove("hidden");
 
-  // 🎵 Start song when Happy Birthday card is shown
-  audio.play().catch((e) => console.log("Audio play failed:", e));
+  // 🎵 Play birthday song
+  audio.play().catch((e) => {
+    console.log("Audio play failed:", e);
+  });
 
-  // 🎊 Trigger confetti on screen 4
+  // 🎊 Trigger confetti
   triggerConfetti();
 });
-
 
 document.getElementById("openCard").addEventListener("click", () => {
   screen4.classList.add("hidden");
   screen5.classList.remove("hidden");
-  // Optional: trigger more confetti here too
+  // Optional: trigger more confetti here
   // triggerConfetti();
 });
 
