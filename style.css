@@ -1,121 +1,64 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #ffe6f0, #e6f0ff);
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(to bottom, #ffd6ec, #fcddee);
+  height: 100vh;
   overflow: hidden;
 }
 
 .screen {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  flex-direction: column;
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .card {
   background: white;
-  padding: 2rem;
+  padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
-  max-width: 90%;
-  width: 400px;
-  position: relative;
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-  color: #e60073;
-  margin-bottom: 1rem;
-}
-
-p {
-  font-size: 1rem;
-  line-height: 1.5;
+  max-width: 300px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 button {
-  background: #ff69b4;
+  background: linear-gradient(to right, #ff00cc, #3333ff);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #ff1493;
-}
-
-.countdown {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  font-size: 2rem;
+  padding: 10px 20px;
+  border-radius: 50px;
   font-weight: bold;
-}
-
-.emojis, .hearts {
-  font-size: 1.5rem;
-  margin: 1rem 0;
-}
-
-.gift-card {
-  margin-top: 2rem;
-  font-size: 3rem;
   cursor: pointer;
-  animation: floatBox 2s infinite ease-in-out;
 }
 
-@keyframes floatBox {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+#floatingHeartsAndStars .heart, 
+#floatingHeartsAndStars .star {
+  position: absolute;
+  font-size: 30px;
+  animation: float 5s infinite ease-in-out;
+  z-index: 10;
 }
 
-/* Floating hearts and stars */
-#floatingHeartsAndStars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
+.heart { color: pink; }
+.star { color: gold; }
 
-.heart, .star {
-  font-size: 2rem;
-  opacity: 0.8;
-}
-
-/* Floating animation */
 @keyframes float {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
 }
 
-/* Confetti canvas */
 .confetti {
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: none;
   width: 100vw;
   height: 100vh;
-  z-index: 999;
+  pointer-events: none;
+  z-index: 9999;
 }
