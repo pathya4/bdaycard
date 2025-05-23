@@ -10,13 +10,16 @@ const screen5 = document.querySelector(".screen5");
 const canvas = document.getElementById("confettiCanvas");
 const confettiInstance = confetti.create(canvas, { resize: true, useWorker: true });
 
-// ✅ First interaction: unlock audio on Start
+let audioUnlocked = false;
+
 document.getElementById("startBtn").addEventListener("click", () => {
-  // Unlock audio autoplay via user interaction
-  audio.play().then(() => {
-    audio.pause(); // Immediately pause — just unlocking autoplay
-    audio.currentTime = 0;
-  });
+  // Unlock audio playback
+  if (!audioUnlocked) {
+    audio.play().then(() => {
+      audio.pause();
+      audioUnlocked = true;
+    }).catch((e) => console.log("Audio unlock failed:", e));
+  }
 
   screen0.classList.add("hidden");
   screen1.classList.remove("hidden");
@@ -33,7 +36,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
         screen2.classList.add("hidden");
         screen3.classList.remove("hidden");
 
-        // 💖 Create floating hearts and stars
+        // Create floating hearts and stars
         createFloatingHeartsAndStars();
       }
       seconds--;
@@ -41,24 +44,23 @@ document.getElementById("startBtn").addEventListener("click", () => {
   }, 2000);
 });
 
-// ✅ Play birthday song only when showing Happy Birthday screen (screen4)
 document.getElementById("revealBtn").addEventListener("click", () => {
   screen3.classList.add("hidden");
   screen4.classList.remove("hidden");
 
-  // 🎵 Play birthday song
-  audio.play().catch((e) => {
-    console.log("Audio play failed:", e);
-  });
+  // Play the birthday song
+  if (audioUnlocked) {
+    audio.play().catch((e) => console.log("Audio play failed:", e));
+  }
 
-  // 🎊 Trigger confetti
+  // Trigger confetti on screen 4
   triggerConfetti();
 });
 
 document.getElementById("openCard").addEventListener("click", () => {
   screen4.classList.add("hidden");
   screen5.classList.remove("hidden");
-  // Optional: trigger more confetti here
+  // Optional: trigger more confetti here too
   // triggerConfetti();
 });
 
@@ -84,3 +86,4 @@ function triggerConfetti() {
     origin: { y: 0.6 },
   });
 }
+
