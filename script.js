@@ -10,11 +10,9 @@ const screen5 = document.querySelector(".screen5");
 const canvas = document.getElementById("confettiCanvas");
 const confettiInstance = confetti.create(canvas, { resize: true, useWorker: true });
 
-let audioUnlocked = false;
-
 document.getElementById("startBtn").addEventListener("click", () => {
-  // Unlock audio playback
-  audioUnlocked = true;
+  // Unlock audio autoplay via user interaction
+  audio.play().then(() => audio.pause());
 
   screen0.classList.add("hidden");
   screen1.classList.remove("hidden");
@@ -31,7 +29,10 @@ document.getElementById("startBtn").addEventListener("click", () => {
         screen2.classList.add("hidden");
         screen3.classList.remove("hidden");
 
-        // Create floating hearts and stars
+        // 🎵 Play the birthday song
+        audio.play();
+
+        // 💖 Create floating hearts and stars
         createFloatingHeartsAndStars();
       }
       seconds--;
@@ -43,13 +44,7 @@ document.getElementById("revealBtn").addEventListener("click", () => {
   screen3.classList.add("hidden");
   screen4.classList.remove("hidden");
 
-  // Play the birthday song
-  if (audioUnlocked) {
-    audio.currentTime = 0;
-    audio.play().catch((e) => console.log("Audio play failed:", e));
-  }
-
-  // Trigger confetti on screen 4
+  // 🎊 Trigger confetti on screen 4
   triggerConfetti();
 });
 
@@ -70,7 +65,7 @@ function createFloatingHeartsAndStars() {
     item.style.left = Math.random() * 100 + "vw";
     item.style.top = Math.random() * 100 + "vh";
     item.style.position = "absolute";
-    item.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
+    item.style.animation = float ${3 + Math.random() * 4}s ease-in-out infinite;
     container.appendChild(item);
   }
 }
