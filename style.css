@@ -62,3 +62,15 @@ button {
   pointer-events: none;
   z-index: 9999;
 }
+
+/* Floating animation for the gift box */
+@keyframes floatBox {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.gift-card {
+  cursor: pointer;
+  animation: floatBox 2s infinite ease-in-out;
+}
