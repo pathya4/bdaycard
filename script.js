@@ -65,7 +65,8 @@ function createFloatingHeartsAndStars() {
     item.style.left = Math.random() * 100 + "vw";
     item.style.top = Math.random() * 100 + "vh";
     item.style.position = "absolute";
-    item.style.animation = float ${3 + Math.random() * 4}s ease-in-out infinite;
+    // Fix here: use backticks for template literal
+    item.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
     container.appendChild(item);
   }
 }
