@@ -14,12 +14,7 @@ let audioUnlocked = false;
 
 document.getElementById("startBtn").addEventListener("click", () => {
   // Unlock audio playback
-  if (!audioUnlocked) {
-    audio.play().then(() => {
-      audio.pause();
-      audioUnlocked = true;
-    }).catch((e) => console.log("Audio unlock failed:", e));
-  }
+  audioUnlocked = true;
 
   screen0.classList.add("hidden");
   screen1.classList.remove("hidden");
@@ -50,6 +45,7 @@ document.getElementById("revealBtn").addEventListener("click", () => {
 
   // Play the birthday song
   if (audioUnlocked) {
+    audio.currentTime = 0;
     audio.play().catch((e) => console.log("Audio play failed:", e));
   }
 
@@ -86,4 +82,3 @@ function triggerConfetti() {
     origin: { y: 0.6 },
   });
 }
-
